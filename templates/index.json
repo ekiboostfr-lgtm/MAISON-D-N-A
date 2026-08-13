@@ -89,33 +89,33 @@
         "c1": {
           "type": "category",
           "settings": {
-            "name": "Peignoirs",
-            "cta": "Découvrir",
-            "link": "shopify://collections/all"
+            "collection": "parures-de-lit",
+            "name": "Parures de lit",
+            "cta": "Découvrir"
           }
         },
         "c2": {
           "type": "category",
           "settings": {
-            "name": "Parures de lit",
-            "cta": "Découvrir",
-            "link": "shopify://collections/all"
+            "collection": "peignoirs",
+            "name": "Peignoirs",
+            "cta": "Découvrir"
           }
         },
         "c3": {
           "type": "category",
           "settings": {
-            "name": "Jetés de lit",
-            "cta": "Découvrir",
-            "link": "shopify://collections/all"
+            "collection": "jetes-de-lit-plaids",
+            "name": "Jetés de lit & plaids",
+            "cta": "Découvrir"
           }
         },
         "c4": {
           "type": "category",
           "settings": {
-            "name": "Serviettes & bain",
-            "cta": "Découvrir",
-            "link": "shopify://collections/all"
+            "collection": "linge-de-bain",
+            "name": "Linge de bain",
+            "cta": "Découvrir"
           }
         }
       },
@@ -129,7 +129,7 @@
     "bestsellers": {
       "type": "product-list",
       "settings": {
-        "collection": "",
+        "collection": "nouveautes",
         "max_products": 4,
         "layout_type": "grid",
         "carousel_on_mobile": false,
@@ -181,7 +181,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Nos best-sellers</h3>",
+                "text": "<h3>Nos nouveautés</h3>",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "",
