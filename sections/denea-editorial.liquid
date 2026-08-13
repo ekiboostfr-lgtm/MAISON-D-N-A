@@ -1,0 +1,122 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- style -%}
+  #denea-edito-{{ section.id }} {
+    padding-block: {{ s.padding_top }}px {{ s.padding_bottom }}px;
+    background: {{ s.background }};
+  }
+  #denea-edito-{{ section.id }} .denea-edito__wrap {
+    max-width: var(--page-width, 1400px);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  #denea-edito-{{ section.id }}.reverse .denea-edito__media { order: 2; }
+  #denea-edito-{{ section.id }} .denea-edito__media {
+    aspect-ratio: {{ s.image_ratio }};
+    border-radius: {{ s.corner_radius }}px;
+    overflow: hidden;
+    background: linear-gradient(150deg, #efe6d5, #d8c9ad);
+  }
+  #denea-edito-{{ section.id }} .denea-edito__media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  #denea-edito-{{ section.id }} .denea-edito__eyebrow {
+    font-family: var(--font-subheading--family, var(--font-body--family));
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 0.72rem;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 0 0 1rem;
+  }
+  #denea-edito-{{ section.id }} .denea-edito__title {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    line-height: 1.12;
+    margin: 0 0 1.2rem;
+    color: var(--color-foreground);
+  }
+  #denea-edito-{{ section.id }} .denea-edito__text {
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 0 0 1.8rem;
+  }
+  #denea-edito-{{ section.id }} .denea-edito__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    text-decoration: none;
+    border-radius: 999px;
+    font-family: var(--font-body--family);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    transition: transform 0.25s ease;
+  }
+  #denea-edito-{{ section.id }} .denea-edito__btn:hover { transform: translateY(-2px); }
+  @media (max-width: 749px) {
+    #denea-edito-{{ section.id }} .denea-edito__wrap { grid-template-columns: 1fr; }
+    #denea-edito-{{ section.id }}.reverse .denea-edito__media { order: 0; }
+  }
+{%- endstyle -%}
+
+<section id="denea-edito-{{ section.id }}" class="{% if s.media_position == 'right' %}reverse{% endif %}">
+  <div class="denea-edito__wrap">
+    <div class="denea-edito__media">
+      {%- if s.image != blank -%}
+        {{ s.image | image_url: width: 1400 | image_tag:
+          loading: 'lazy',
+          sizes: '(max-width: 749px) 100vw, 50vw',
+          widths: '500, 750, 1000, 1400',
+          alt: s.title | escape }}
+      {%- endif -%}
+    </div>
+    <div class="denea-edito__content">
+      {%- if s.eyebrow != blank -%}<p class="denea-edito__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.title != blank -%}<h2 class="denea-edito__title">{{ s.title }}</h2>{%- endif -%}
+      {%- if s.text != blank -%}<div class="denea-edito__text">{{ s.text }}</div>{%- endif -%}
+      {%- if s.button_label != blank -%}
+        <a href="{{ s.button_link | default: '#' }}" class="denea-edito__btn">{{ s.button_label }} →</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Denea — Éditorial",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "media_position", "label": "Position de l'image", "options": [
+      { "value": "left", "label": "Gauche" },
+      { "value": "right", "label": "Droite" }
+    ], "default": "left" },
+    { "type": "select", "id": "image_ratio", "label": "Format de l'image", "options": [
+      { "value": "4 / 5", "label": "Portrait" },
+      { "value": "1 / 1", "label": "Carré" },
+      { "value": "4 / 3", "label": "Paysage" }
+    ], "default": "4 / 5" },
+    { "type": "range", "id": "corner_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arrondi", "default": 8 },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Notre savoir-faire" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Le linge de maison, comme un art de vivre" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Chez Maison Denea, chaque pièce est pensée pour durer et se bonifier avec le temps. Nous sélectionnons des matières naturelles — coton peigné, lin lavé, tissages moelleux — pour vous offrir un confort enveloppant, jour après jour.</p>" },
+    { "type": "text", "id": "button_label", "label": "Bouton — texte", "default": "Notre histoire" },
+    { "type": "url", "id": "button_link", "label": "Bouton — lien" },
+    { "type": "color", "id": "background", "label": "Fond", "default": "#F1EADD" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Marge haut", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Marge bas", "default": 80 }
+  ],
+  "presets": [{ "name": "Denea — Éditorial" }]
+}
+{% endschema %}

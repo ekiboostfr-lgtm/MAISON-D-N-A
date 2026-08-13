@@ -1,0 +1,195 @@
+{%- liquid
+  assign s = section.settings
+  assign has_image = false
+  if s.image != blank
+    assign has_image = true
+  endif
+-%}
+
+{%- style -%}
+  #denea-hero-{{ section.id }} {
+    position: relative;
+    display: flex;
+    align-items: {{ s.content_position }};
+    justify-content: {{ s.content_alignment }};
+    min-height: {{ s.height }}vh;
+    padding: clamp(2rem, 6vw, 6rem);
+    overflow: hidden;
+    background-color: var(--color-background-secondary, #ece4d6);
+    isolation: isolate;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__fallback {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(120% 120% at 15% 15%, #f3ead9 0%, #e7dcc7 45%, #d9caae 100%);
+  }
+  #denea-hero-{{ section.id }} .denea-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to top,
+      rgba(43, 36, 28, {{ s.overlay_opacity | divided_by: 100.0 }}),
+      rgba(43, 36, 28, {{ s.overlay_opacity | divided_by: 200.0 }}) 45%,
+      rgba(43, 36, 28, 0) 100%
+    );
+  }
+  #denea-hero-{{ section.id }} .denea-hero__inner {
+    max-width: 640px;
+    text-align: {{ s.text_align }};
+    color: {% if has_image %}#fdfbf6{% else %}var(--color-foreground){% endif %};
+    animation: deneaFade 0.9s ease both;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__eyebrow {
+    font-family: var(--font-subheading--family, var(--font-body--family));
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.72rem;
+    margin: 0 0 1.1rem;
+    opacity: 0.9;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__title {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    line-height: 1.06;
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    margin: 0 0 1.2rem;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__subtitle {
+    font-family: var(--font-body--family);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.7;
+    max-width: 46ch;
+    margin: 0 0 2rem;
+    {% if s.text_align == 'center' %}margin-inline: auto;{% endif %}
+    opacity: 0.94;
+  }
+  #denea-hero-{{ section.id }} .denea-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    {% if s.text_align == 'center' %}justify-content: center;{% endif %}
+  }
+  #denea-hero-{{ section.id }} .denea-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.95rem 2rem;
+    font-family: var(--font-body--family);
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+  #denea-hero-{{ section.id }} .denea-btn--primary {
+    background: {% if has_image %}#fdfbf6{% else %}var(--color-foreground){% endif %};
+    color: {% if has_image %}#3B332A{% else %}var(--color-background){% endif %};
+  }
+  #denea-hero-{{ section.id }} .denea-btn--primary:hover { transform: translateY(-2px); }
+  #denea-hero-{{ section.id }} .denea-btn--ghost {
+    background: transparent;
+    color: {% if has_image %}#fdfbf6{% else %}var(--color-foreground){% endif %};
+    border: 1px solid currentColor;
+  }
+  #denea-hero-{{ section.id }} .denea-btn--ghost:hover { transform: translateY(-2px); opacity: 0.85; }
+  @keyframes deneaFade {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 749px) {
+    #denea-hero-{{ section.id }} { min-height: {{ s.height_mobile }}vh; justify-content: center; }
+    #denea-hero-{{ section.id }} .denea-hero__inner { text-align: {{ s.text_align_mobile }}; }
+  }
+{%- endstyle -%}
+
+<section id="denea-hero-{{ section.id }}" class="denea-hero">
+  {%- if has_image -%}
+    <div class="denea-hero__media">
+      {{ s.image | image_url: width: 2400 | image_tag:
+        loading: 'eager',
+        fetchpriority: 'high',
+        sizes: '100vw',
+        widths: '640, 960, 1280, 1600, 2000, 2400',
+        alt: s.image.alt | default: s.heading | escape }}
+    </div>
+    <div class="denea-hero__overlay"></div>
+  {%- else -%}
+    <div class="denea-hero__fallback"></div>
+  {%- endif -%}
+
+  <div class="denea-hero__inner">
+    {%- if s.eyebrow != blank -%}
+      <p class="denea-hero__eyebrow">{{ s.eyebrow }}</p>
+    {%- endif -%}
+    {%- if s.heading != blank -%}
+      <h1 class="denea-hero__title">{{ s.heading }}</h1>
+    {%- endif -%}
+    {%- if s.subheading != blank -%}
+      <p class="denea-hero__subtitle">{{ s.subheading }}</p>
+    {%- endif -%}
+    <div class="denea-hero__actions">
+      {%- if s.button_label != blank -%}
+        <a href="{{ s.button_link | default: '#' }}" class="denea-btn denea-btn--primary">{{ s.button_label }}</a>
+      {%- endif -%}
+      {%- if s.button_label_2 != blank -%}
+        <a href="{{ s.button_link_2 | default: '#' }}" class="denea-btn denea-btn--ghost">{{ s.button_label_2 }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Denea — Bannière",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Contenu" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Linge de maison d'exception" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "L'art de sublimer votre intérieur" },
+    { "type": "textarea", "id": "subheading", "label": "Sous-titre", "default": "Des matières nobles, une confection soignée. Peignoirs, parures de lit et jetés qui transforment le quotidien en douceur." },
+    { "type": "text", "id": "button_label", "label": "Bouton principal — texte", "default": "Découvrir la collection" },
+    { "type": "url", "id": "button_link", "label": "Bouton principal — lien" },
+    { "type": "text", "id": "button_label_2", "label": "Bouton secondaire — texte", "default": "Nos parures de lit" },
+    { "type": "url", "id": "button_link_2", "label": "Bouton secondaire — lien" },
+    { "type": "header", "content": "Image de fond" },
+    { "type": "image_picker", "id": "image", "label": "Image (optionnelle)" },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Assombrissement de l'image", "default": 35 },
+    { "type": "header", "content": "Mise en page" },
+    { "type": "select", "id": "content_position", "label": "Position verticale", "options": [
+      { "value": "flex-start", "label": "Haut" },
+      { "value": "center", "label": "Centre" },
+      { "value": "flex-end", "label": "Bas" }
+    ], "default": "center" },
+    { "type": "select", "id": "content_alignment", "label": "Position horizontale", "options": [
+      { "value": "flex-start", "label": "Gauche" },
+      { "value": "center", "label": "Centre" },
+      { "value": "flex-end", "label": "Droite" }
+    ], "default": "flex-start" },
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "options": [
+      { "value": "left", "label": "Gauche" },
+      { "value": "center", "label": "Centre" }
+    ], "default": "left" },
+    { "type": "select", "id": "text_align_mobile", "label": "Alignement du texte (mobile)", "options": [
+      { "value": "left", "label": "Gauche" },
+      { "value": "center", "label": "Centre" }
+    ], "default": "center" },
+    { "type": "range", "id": "height", "min": 50, "max": 100, "step": 5, "unit": "vh", "label": "Hauteur (ordinateur)", "default": 82 },
+    { "type": "range", "id": "height_mobile", "min": 50, "max": 100, "step": 5, "unit": "vh", "label": "Hauteur (mobile)", "default": 72 }
+  ],
+  "presets": [{ "name": "Denea — Bannière" }]
+}
+{% endschema %}

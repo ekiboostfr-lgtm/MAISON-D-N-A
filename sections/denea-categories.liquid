@@ -1,0 +1,153 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- style -%}
+  #denea-cat-{{ section.id }} {
+    padding-block: {{ s.padding_top }}px {{ s.padding_bottom }}px;
+    background: var(--color-background);
+  }
+  #denea-cat-{{ section.id }} .denea-cat__wrap {
+    max-width: var(--page-width, 1400px);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+  #denea-cat-{{ section.id }} .denea-cat__head {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3.2rem);
+  }
+  #denea-cat-{{ section.id }} .denea-cat__eyebrow {
+    font-family: var(--font-subheading--family, var(--font-body--family));
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 0.72rem;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 0 0 0.8rem;
+  }
+  #denea-cat-{{ section.id }} .denea-cat__title {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    margin: 0;
+    color: var(--color-foreground);
+  }
+  #denea-cat-{{ section.id }} .denea-cat__grid {
+    display: grid;
+    grid-template-columns: repeat({{ s.columns }}, 1fr);
+    gap: clamp(0.8rem, 1.6vw, 1.4rem);
+  }
+  #denea-cat-{{ section.id }} .denea-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    border-radius: {{ s.corner_radius }}px;
+    overflow: hidden;
+    text-decoration: none;
+    isolation: isolate;
+    background: linear-gradient(150deg, #efe6d5, #ddceb2);
+  }
+  #denea-cat-{{ section.id }} .denea-card img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(.2,.7,.2,1);
+  }
+  #denea-cat-{{ section.id }} .denea-card:hover img { transform: scale(1.06); }
+  #denea-cat-{{ section.id }} .denea-card__scrim {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to top, rgba(43,36,28,0.55) 0%, rgba(43,36,28,0.12) 45%, rgba(43,36,28,0) 75%);
+  }
+  #denea-cat-{{ section.id }} .denea-card__label {
+    position: absolute; z-index: 2;
+    left: 0; right: 0; bottom: 0;
+    padding: 1.3rem;
+    color: #fdfbf6;
+  }
+  #denea-cat-{{ section.id }} .denea-card__name {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    margin: 0 0 0.2rem;
+  }
+  #denea-cat-{{ section.id }} .denea-card__cta {
+    font-family: var(--font-body--family);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    opacity: 0.92;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    transition: gap 0.25s ease;
+  }
+  #denea-cat-{{ section.id }} .denea-card:hover .denea-card__cta { gap: 0.6rem; }
+  @media (max-width: 989px) {
+    #denea-cat-{{ section.id }} .denea-cat__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 559px) {
+    #denea-cat-{{ section.id }} .denea-cat__grid { grid-template-columns: 1fr; }
+    #denea-cat-{{ section.id }} .denea-card { aspect-ratio: 4 / 3; }
+  }
+{%- endstyle -%}
+
+<section id="denea-cat-{{ section.id }}">
+  <div class="denea-cat__wrap">
+    <div class="denea-cat__head">
+      {%- if s.eyebrow != blank -%}<p class="denea-cat__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.title != blank -%}<h2 class="denea-cat__title">{{ s.title }}</h2>{%- endif -%}
+    </div>
+    <div class="denea-cat__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="denea-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 900 | image_tag:
+              loading: 'lazy',
+              sizes: '(max-width: 559px) 100vw, (max-width: 989px) 50vw, 25vw',
+              widths: '300, 450, 600, 900',
+              alt: block.settings.name | escape }}
+          {%- endif -%}
+          <span class="denea-card__scrim"></span>
+          <span class="denea-card__label">
+            <span class="denea-card__name">{{ block.settings.name }}</span>
+            <span class="denea-card__cta">{{ block.settings.cta | default: 'Découvrir' }} →</span>
+          </span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Denea — Catégories",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Nos univers" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Explorez nos collections" },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Colonnes (ordinateur)", "default": 4 },
+    { "type": "range", "id": "corner_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arrondi des cartes", "default": 8 },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Marge haut", "default": 72 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Marge bas", "default": 72 }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Catégorie",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Catégorie" },
+        { "type": "text", "id": "cta", "label": "Texte du lien", "default": "Découvrir" },
+        { "type": "url", "id": "link", "label": "Lien" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Denea — Catégories",
+      "blocks": [
+        { "type": "category", "settings": { "name": "Peignoirs", "cta": "Découvrir" } },
+        { "type": "category", "settings": { "name": "Parures de lit", "cta": "Découvrir" } },
+        { "type": "category", "settings": { "name": "Jetés de lit", "cta": "Découvrir" } },
+        { "type": "category", "settings": { "name": "Serviettes & bain", "cta": "Découvrir" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

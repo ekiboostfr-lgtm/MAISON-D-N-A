@@ -8,91 +8,142 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "hero": {
+      "type": "denea-hero",
+      "settings": {
+        "eyebrow": "Linge de maison d'exception",
+        "heading": "L'art de sublimer votre intérieur",
+        "subheading": "Des matières nobles, une confection soignée. Peignoirs, parures de lit et jetés qui transforment le quotidien en douceur.",
+        "button_label": "Découvrir la collection",
+        "button_link": "shopify://collections/all",
+        "button_label_2": "Nos parures de lit",
+        "button_link_2": "shopify://collections/all",
+        "overlay_opacity": 35,
+        "content_position": "center",
+        "content_alignment": "flex-start",
+        "text_align": "left",
+        "text_align_mobile": "center",
+        "height": 82,
+        "height_mobile": 72
+      }
+    },
+    "values": {
+      "type": "denea-values",
+      "settings": {
+        "background": "#F1EADD",
+        "padding_top": 28,
+        "padding_bottom": 28
+      },
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "v1": {
+          "type": "value",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "icon": "✿",
+            "title": "Matières nobles",
+            "text": "Coton peigné & lin lavé"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "v2": {
+          "type": "value",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "icon": "❖",
+            "title": "Livraison offerte",
+            "text": "Dès 80€ d'achat"
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "icon": "♡",
+            "title": "Confection soignée",
+            "text": "Sélection exigeante"
+          }
+        },
+        "v4": {
+          "type": "value",
+          "settings": {
+            "icon": "↺",
+            "title": "Retours 30 jours",
+            "text": "Échanges simplifiés"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
-      }
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ]
     },
-    "product_list_fa6P9H": {
+    "categories": {
+      "type": "denea-categories",
+      "settings": {
+        "eyebrow": "Nos univers",
+        "title": "Explorez nos collections",
+        "columns": 4,
+        "corner_radius": 8,
+        "padding_top": 72,
+        "padding_bottom": 72
+      },
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "name": "Peignoirs",
+            "cta": "Découvrir",
+            "link": "shopify://collections/all"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "name": "Parures de lit",
+            "cta": "Découvrir",
+            "link": "shopify://collections/all"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "name": "Jetés de lit",
+            "cta": "Découvrir",
+            "link": "shopify://collections/all"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "name": "Serviettes & bain",
+            "cta": "Découvrir",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "bestsellers": {
       "type": "product-list",
+      "settings": {
+        "collection": "",
+        "max_products": 4,
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "columns": 4,
+        "mobile_columns": "2",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 28,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
       "blocks": {
         "static-header": {
           "type": "_product-list-content",
@@ -126,48 +177,44 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_list_text_YFtzcL": {
+            "product_list_text": {
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
+                "text": "<h3>Nos best-sellers</h3>",
+                "type_preset": "rte",
                 "font": "var(--font-body--family)",
+                "font_size": "",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "product_list_button_MWeP9V": {
+            "product_list_button": {
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
-                "label": "View all",
+                "label": "Tout voir",
                 "open_in_new_tab": false,
-                "style_class": "link",
+                "style_class": "button-unstyled",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
-              },
-              "blocks": {}
+              }
             }
           },
           "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
+            "product_list_text",
+            "product_list_button"
           ]
         },
         "static-product-card": {
@@ -186,7 +233,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_677WP3": {
+            "product-card-gallery": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
@@ -199,17 +246,16 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "product_title_YXxMTj": {
+            "product_title": {
               "type": "product-title",
               "name": "t:names.product_title",
               "settings": {
-                "width": "100%",
+                "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "paragraph",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -223,10 +269,9 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             },
-            "price_JQzVV4": {
+            "price": {
               "type": "price",
               "name": "t:names.product_price",
               "settings": {
@@ -245,41 +290,55 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
+              }
             }
           },
           "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
+            "product-card-gallery",
+            "product_title",
+            "price"
           ]
         }
       },
-      "name": "t:names.product_list",
+      "block_order": []
+    },
+    "editorial": {
+      "type": "denea-editorial",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "media_position": "left",
+        "image_ratio": "4 / 5",
+        "corner_radius": 8,
+        "eyebrow": "Notre savoir-faire",
+        "title": "Le linge de maison, comme un art de vivre",
+        "text": "<p>Chez Maison Denea, chaque pièce est pensée pour durer et se bonifier avec le temps. Nous sélectionnons des matières naturelles — coton peigné, lin lavé, tissages moelleux — pour vous offrir un confort enveloppant, jour après jour.</p>",
+        "button_label": "Notre histoire",
+        "button_link": "",
+        "background": "#F1EADD",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "newsletter": {
+      "type": "denea-newsletter",
+      "settings": {
+        "eyebrow": "Rejoignez la maison",
+        "title": "-10% sur votre première commande",
+        "text": "Inscrivez-vous à notre newsletter pour recevoir nos nouveautés, conseils d'entretien et offres privées.",
+        "placeholder": "Votre adresse email",
+        "button_label": "Je m'inscris",
+        "note": "Désinscription possible à tout moment. Vos données restent confidentielles.",
+        "background": "#ECE3D3",
+        "padding_top": 88,
+        "padding_bottom": 88
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "hero",
+    "values",
+    "categories",
+    "bestsellers",
+    "editorial",
+    "newsletter"
   ]
 }

@@ -1,0 +1,100 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- style -%}
+  #denea-values-{{ section.id }} {
+    background: {{ s.background }};
+    padding-block: {{ s.padding_top }}px {{ s.padding_bottom }}px;
+    border-block: 1px solid var(--color-border, #E3D9C8);
+  }
+  #denea-values-{{ section.id }} .denea-values__grid {
+    max-width: var(--page-width, 1400px);
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  #denea-values-{{ section.id }} .denea-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    text-align: left;
+  }
+  #denea-values-{{ section.id }} .denea-value__icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  #denea-values-{{ section.id }} .denea-value__title {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 0 0.15rem;
+    color: var(--color-foreground);
+  }
+  #denea-values-{{ section.id }} .denea-value__text {
+    font-family: var(--font-body--family);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--color-foreground-secondary, #5C5245);
+  }
+  @media (max-width: 989px) {
+    #denea-values-{{ section.id }} .denea-values__grid { grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+  }
+  @media (max-width: 559px) {
+    #denea-values-{{ section.id }} .denea-values__grid { grid-template-columns: 1fr; }
+    #denea-values-{{ section.id }} .denea-value { justify-content: flex-start; }
+  }
+{%- endstyle -%}
+
+<section id="denea-values-{{ section.id }}">
+  <div class="denea-values__grid">
+    {%- for block in section.blocks -%}
+      <div class="denea-value" {{ block.shopify_attributes }}>
+        <span class="denea-value__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+        <div>
+          <p class="denea-value__title">{{ block.settings.title }}</p>
+          <p class="denea-value__text">{{ block.settings.text }}</p>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Denea — Réassurance",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "background", "label": "Fond", "default": "#F1EADD" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Marge haut", "default": 28 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Marge bas", "default": 28 }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Argument",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji / icône", "default": "✦" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Livraison offerte" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Dès 80€ d'achat" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Denea — Réassurance",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "✿", "title": "Matières nobles", "text": "Coton peigné & lin lavé" } },
+        { "type": "value", "settings": { "icon": "❖", "title": "Livraison offerte", "text": "Dès 80€ d'achat" } },
+        { "type": "value", "settings": { "icon": "♡", "title": "Confection soignée", "text": "Sélection exigeante" } },
+        { "type": "value", "settings": { "icon": "↺", "title": "Retours 30 jours", "text": "Échanges simplifiés" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

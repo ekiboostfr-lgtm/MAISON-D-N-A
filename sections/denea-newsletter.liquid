@@ -1,0 +1,137 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+{%- style -%}
+  #denea-news-{{ section.id }} {
+    padding-block: {{ s.padding_top }}px {{ s.padding_bottom }}px;
+    background: {{ s.background }};
+  }
+  #denea-news-{{ section.id }} .denea-news__wrap {
+    max-width: 680px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    text-align: center;
+  }
+  #denea-news-{{ section.id }} .denea-news__eyebrow {
+    font-family: var(--font-subheading--family, var(--font-body--family));
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 0.72rem;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 0 0 0.9rem;
+  }
+  #denea-news-{{ section.id }} .denea-news__title {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    margin: 0 0 0.9rem;
+    color: var(--color-foreground);
+  }
+  #denea-news-{{ section.id }} .denea-news__text {
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 0 auto 2rem;
+    max-width: 48ch;
+  }
+  #denea-news-{{ section.id }} .denea-news__form {
+    display: flex;
+    gap: 0.6rem;
+    max-width: 460px;
+    margin-inline: auto;
+  }
+  #denea-news-{{ section.id }} .denea-news__input {
+    flex: 1;
+    padding: 0.95rem 1.2rem;
+    border: 1px solid var(--color-border, #E3D9C8);
+    border-radius: 999px;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body--family);
+    font-size: 0.95rem;
+  }
+  #denea-news-{{ section.id }} .denea-news__input:focus {
+    outline: none;
+    border-color: var(--color-foreground);
+  }
+  #denea-news-{{ section.id }} .denea-news__btn {
+    padding: 0.95rem 1.8rem;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border: none;
+    border-radius: 999px;
+    font-family: var(--font-body--family);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    white-space: nowrap;
+  }
+  #denea-news-{{ section.id }} .denea-news__btn:hover { transform: translateY(-2px); }
+  #denea-news-{{ section.id }} .denea-news__note {
+    font-family: var(--font-body--family);
+    font-size: 0.78rem;
+    color: var(--color-foreground-secondary, #5C5245);
+    margin: 1rem 0 0;
+    opacity: 0.85;
+  }
+  #denea-news-{{ section.id }} .denea-news__success {
+    font-family: var(--font-body--family);
+    color: var(--color-foreground);
+    background: var(--color-background);
+    border: 1px solid var(--color-border, #E3D9C8);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-top: 1.2rem;
+  }
+  @media (max-width: 559px) {
+    #denea-news-{{ section.id }} .denea-news__form { flex-direction: column; }
+    #denea-news-{{ section.id }} .denea-news__input,
+    #denea-news-{{ section.id }} .denea-news__btn { width: 100%; }
+  }
+{%- endstyle -%}
+
+<section id="denea-news-{{ section.id }}">
+  <div class="denea-news__wrap">
+    {%- if s.eyebrow != blank -%}<p class="denea-news__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+    {%- if s.title != blank -%}<h2 class="denea-news__title">{{ s.title }}</h2>{%- endif -%}
+    {%- if s.text != blank -%}<p class="denea-news__text">{{ s.text }}</p>{%- endif -%}
+
+    {%- form 'customer', class: 'denea-news__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <label class="visually-hidden" for="denea-news-email-{{ section.id }}">Email</label>
+      <input
+        id="denea-news-email-{{ section.id }}"
+        class="denea-news__input"
+        type="email"
+        name="contact[email]"
+        placeholder="{{ s.placeholder }}"
+        autocomplete="email"
+        required>
+      <button type="submit" class="denea-news__btn">{{ s.button_label }}</button>
+    {%- endform -%}
+
+    {%- if s.note != blank -%}<p class="denea-news__note">{{ s.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Denea — Newsletter",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Rejoignez la maison" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "-10% sur votre première commande" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Inscrivez-vous à notre newsletter pour recevoir nos nouveautés, conseils d'entretien et offres privées." },
+    { "type": "text", "id": "placeholder", "label": "Placeholder du champ", "default": "Votre adresse email" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Je m'inscris" },
+    { "type": "text", "id": "note", "label": "Mention légère", "default": "Désinscription possible à tout moment. Vos données restent confidentielles." },
+    { "type": "color", "id": "background", "label": "Fond", "default": "#ECE3D3" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Marge haut", "default": 88 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Marge bas", "default": 88 }
+  ],
+  "presets": [{ "name": "Denea — Newsletter" }]
+}
+{% endschema %}
