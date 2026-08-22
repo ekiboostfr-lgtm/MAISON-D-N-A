@@ -298,6 +298,151 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "denea_reassurance": {
+              "type": "text",
+              "settings": {
+                "text": "<p>✓&nbsp;Livraison offerte dès 80€&nbsp;&nbsp;·&nbsp;&nbsp;✓&nbsp;Retours sous 30 jours&nbsp;&nbsp;·&nbsp;&nbsp;✓&nbsp;Paiement sécurisé</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "0.82rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "denea_accordion": {
+              "type": "accordion",
+              "settings": {
+                "dividers": true
+              },
+              "blocks": {
+                "row_compo": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Composition & matière",
+                    "open_by_default": true
+                  },
+                  "blocks": {
+                    "t_compo": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.metafields.custom.composition | default: 'Nous privilégions des fibres naturelles — coton peigné, lin lavé, tissages moelleux — sélectionnées pour leur douceur et leur durabilité. Retrouvez le détail de cette pièce dans sa description.' }}",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "t_compo"
+                  ]
+                },
+                "row_entretien": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Entretien",
+                    "open_by_default": false
+                  },
+                  "blocks": {
+                    "t_entretien": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Lavage à 30–40°C, cycle délicat</li><li>Sans adoucissant (il gaine les fibres)</li><li>Séchage à l'air libre de préférence</li><li>Repassage doux si nécessaire</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "t_entretien"
+                  ]
+                },
+                "row_livraison": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Livraison & retours",
+                    "open_by_default": false
+                  },
+                  "blocks": {
+                    "t_livraison": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Livraison offerte dès 80€</strong> — préparation sous 24 à 48h ouvrées.</p><p><strong>Retours gratuits sous 30 jours</strong>, articles non lavés et dans leur emballage d'origine.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "t_livraison"
+                  ]
+                }
+              },
+              "block_order": [
+                "row_compo",
+                "row_entretien",
+                "row_livraison"
+              ]
             }
           },
           "block_order": [
@@ -305,7 +450,9 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "text_aEtTtq"
+            "denea_reassurance",
+            "text_aEtTtq",
+            "denea_accordion"
           ]
         }
       },
