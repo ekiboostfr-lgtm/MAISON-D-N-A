@@ -299,30 +299,6 @@
               },
               "blocks": {}
             },
-            "denea_reassurance": {
-              "type": "text",
-              "settings": {
-                "text": "<p>✓&nbsp;Livraison offerte dès 80€&nbsp;&nbsp;·&nbsp;&nbsp;✓&nbsp;Retours sous 30 jours&nbsp;&nbsp;·&nbsp;&nbsp;✓&nbsp;Paiement sécurisé</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "0.82rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
             "denea_accordion": {
               "type": "accordion",
               "settings": {
@@ -443,6 +419,25 @@
                 "row_entretien",
                 "row_livraison"
               ]
+            },
+            "denea_trust": {
+              "type": "denea-trust-badges",
+              "settings": {
+                "columns": 4,
+                "show_borders": true,
+                "icon_1": "truck",
+                "title_1": "Livraison offerte",
+                "sub_1": "Dès 80€ d'achat",
+                "icon_2": "return",
+                "title_2": "Retours 30 jours",
+                "sub_2": "Échanges simplifiés",
+                "icon_3": "shield",
+                "title_3": "Paiement sécurisé",
+                "sub_3": "100% protégé",
+                "icon_4": "leaf",
+                "title_4": "Matières naturelles",
+                "sub_4": "Douces & durables"
+              }
             }
           },
           "block_order": [
@@ -450,7 +445,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "denea_reassurance",
+            "denea_trust",
             "text_aEtTtq",
             "denea_accordion"
           ]

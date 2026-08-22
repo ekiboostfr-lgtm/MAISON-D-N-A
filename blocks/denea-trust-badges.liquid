@@ -1,0 +1,130 @@
+{%- liquid
+  assign s = block.settings
+  assign items = ''
+  if s.title_1 != blank
+    assign items = items | append: '1,'
+  endif
+  if s.title_2 != blank
+    assign items = items | append: '2,'
+  endif
+  if s.title_3 != blank
+    assign items = items | append: '3,'
+  endif
+  if s.title_4 != blank
+    assign items = items | append: '4,'
+  endif
+  assign item_list = items | split: ','
+-%}
+
+{%- capture icon_defs -%}
+{%- endcapture -%}
+
+{%- style -%}
+  #denea-trust-{{ block.id }} {
+    display: grid;
+    grid-template-columns: repeat({{ s.columns }}, 1fr);
+    gap: 0.6rem 0.4rem;
+    padding-block: {{ s.padding-block-start }}px {{ s.padding-block-end }}px;
+    {% if s.show_borders %}border-block: 1px solid var(--color-border, #E3D9C8);{% endif %}
+    margin-block: 0.4rem;
+  }
+  #denea-trust-{{ block.id }} .dtb-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.35rem;
+    padding: 0.6rem 0.3rem;
+  }
+  #denea-trust-{{ block.id }} .dtb-item svg {
+    width: 26px; height: 26px;
+    stroke: {{ s.icon_color | default: 'currentColor' }};
+    color: {{ s.icon_color | default: 'currentColor' }};
+    stroke-width: 1.4;
+    fill: none;
+  }
+  #denea-trust-{{ block.id }} .dtb-title {
+    font-family: var(--font-body--family);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    line-height: 1.2;
+  }
+  #denea-trust-{{ block.id }} .dtb-sub {
+    font-family: var(--font-body--family);
+    font-size: 0.72rem;
+    color: var(--color-foreground-secondary, #5C5245);
+    line-height: 1.3;
+  }
+  @media (max-width: 480px) {
+    #denea-trust-{{ block.id }} { grid-template-columns: repeat(2, 1fr); }
+  }
+{%- endstyle -%}
+
+<div id="denea-trust-{{ block.id }}" class="denea-trust" {{ block.shopify_attributes }}>
+  {%- for i in item_list -%}
+    {%- liquid
+      assign icon = s['icon_' | append: i]
+      assign title = s['title_' | append: i]
+      assign sub = s['sub_' | append: i]
+    -%}
+    <div class="dtb-item">
+      <span aria-hidden="true">
+        {%- case icon -%}
+          {%- when 'truck' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7zM7.5 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+          {%- when 'return' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a9 9 0 1 1-1 4"/><path d="M3 4v4h4"/></svg>
+          {%- when 'shield' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          {%- when 'leaf' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4S8 4 6 12c-1 4 2 8 6 8 8-2 8-16 8-16z"/><path d="M6 20c4-8 8-10 12-12"/></svg>
+          {%- when 'heart' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.5-9-9a4.5 4.5 0 0 1 9-2 4.5 4.5 0 0 1 9 2c-2 4.5-9 9-9 9z"/></svg>
+          {%- when 'gift' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v9H4zM4 7h16v4H4zM12 7v13M12 7S9 3 7 5s3 2 5 2zM12 7s3-4 5-2-3 2-5 2z"/></svg>
+          {%- when 'sparkle' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>
+          {%- when 'medal' -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M9 14l-2 7 5-3 5 3-2-7"/></svg>
+          {%- else -%}
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+        {%- endcase -%}
+      </span>
+      <span class="dtb-title">{{ title }}</span>
+      {%- if sub != blank -%}<span class="dtb-sub">{{ sub }}</span>{%- endif -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Denea — Badges de confiance",
+  "settings": [
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Colonnes", "default": 4 },
+    { "type": "checkbox", "id": "show_borders", "label": "Filets haut et bas", "default": true },
+    { "type": "color", "id": "icon_color", "label": "Couleur des icônes" },
+    { "type": "header", "content": "Badge 1" },
+    { "type": "select", "id": "icon_1", "label": "Icône", "default": "truck", "options": [
+      {"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Bouclier"},{"value":"leaf","label":"Feuille"},{"value":"heart","label":"Cœur"},{"value":"gift","label":"Cadeau"},{"value":"sparkle","label":"Étoile"},{"value":"medal","label":"Médaille"}]},
+    { "type": "text", "id": "title_1", "label": "Titre", "default": "Livraison offerte" },
+    { "type": "text", "id": "sub_1", "label": "Sous-titre", "default": "Dès 80€ d'achat" },
+    { "type": "header", "content": "Badge 2" },
+    { "type": "select", "id": "icon_2", "label": "Icône", "default": "return", "options": [
+      {"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Bouclier"},{"value":"leaf","label":"Feuille"},{"value":"heart","label":"Cœur"},{"value":"gift","label":"Cadeau"},{"value":"sparkle","label":"Étoile"},{"value":"medal","label":"Médaille"}]},
+    { "type": "text", "id": "title_2", "label": "Titre", "default": "Retours 30 jours" },
+    { "type": "text", "id": "sub_2", "label": "Sous-titre", "default": "Échanges simplifiés" },
+    { "type": "header", "content": "Badge 3" },
+    { "type": "select", "id": "icon_3", "label": "Icône", "default": "shield", "options": [
+      {"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Bouclier"},{"value":"leaf","label":"Feuille"},{"value":"heart","label":"Cœur"},{"value":"gift","label":"Cadeau"},{"value":"sparkle","label":"Étoile"},{"value":"medal","label":"Médaille"}]},
+    { "type": "text", "id": "title_3", "label": "Titre", "default": "Paiement sécurisé" },
+    { "type": "text", "id": "sub_3", "label": "Sous-titre", "default": "100% protégé" },
+    { "type": "header", "content": "Badge 4" },
+    { "type": "select", "id": "icon_4", "label": "Icône", "default": "leaf", "options": [
+      {"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Bouclier"},{"value":"leaf","label":"Feuille"},{"value":"heart","label":"Cœur"},{"value":"gift","label":"Cadeau"},{"value":"sparkle","label":"Étoile"},{"value":"medal","label":"Médaille"}]},
+    { "type": "text", "id": "title_4", "label": "Titre", "default": "Matières naturelles" },
+    { "type": "text", "id": "sub_4", "label": "Sous-titre", "default": "Douces & durables" }
+  ],
+  "presets": [{ "name": "Denea — Badges de confiance" }]
+}
+{% endschema %}
